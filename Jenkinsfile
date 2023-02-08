@@ -1,3 +1,4 @@
+def dockerbuildversion = null
 pipeline {
     agent any
     // Environment Variables
@@ -9,8 +10,10 @@ pipeline {
             steps {
                 echo " = = = == = = = = = = Creating Docker Image = = = = = == = = = = ="
                 echo "${env.dockerImageName}"
-                echo "Building Number ${BUILD_NUMBER}"
-                //sh 'docker build -t ${env.dockerImageName} .'
+                dockerbuildversion = "${env.dockerImageName}:v${BUILD_NUMBER}"
+                echo "Building Number ${BUILD_NUMBER} and docker build version is ${dockerbuildversion}"
+                
+                sh 'docker build -t ${env.dockerImageName}:v${BUILD_NUMBER} .'
             }
         }
         stage('Verify Docker Image') {
