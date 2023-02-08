@@ -10,7 +10,7 @@ pipeline {
             steps {
                 echo " = = = == = = = = = = Creating Docker Image = = = = = == = = = = ="
                 echo "${env.dockerImageName}"
-                dockerbuildversion = "${env.dockerImageName}:v${BUILD_NUMBER}"
+                def dockerbuildversion = "${env.dockerImageName}:v${BUILD_NUMBER}"
                 echo "Building Number ${BUILD_NUMBER} and docker build version is ${dockerbuildversion}"
                 
                 sh 'docker build -t ${env.dockerImageName}:v${BUILD_NUMBER} .'
