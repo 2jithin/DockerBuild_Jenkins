@@ -13,7 +13,7 @@ pipeline {
                 //dockerbuildversion = "${env.dockerImageName}:v${BUILD_NUMBER}"
                 echo "Building Number ${BUILD_NUMBER} and docker build version is ${dockerbuildversion}"
                 
-                sh 'docker build -t ${env.dockerImageName}:v${BUILD_NUMBER} .'
+                sh 'docker build -t "${env.dockerImageName}:v${BUILD_NUMBER}" .'
             }
         }
         stage('Verify Docker Image') {
