@@ -14,7 +14,7 @@ pipeline {
                 echo "Building Number ${BUILD_NUMBER} and docker build version is ${dockerbuildversion}"
                 //echo "$env.dockerImageName"
                 //sh 'docker build -t apache-image .'
-                sh 'docker build -t $env.dockerImageName:v$BUILD_NUMBER .'
+                sh 'docker build -t ${env.dockerImageName}:v$BUILD_NUMBER .'
                 
             }
         }
