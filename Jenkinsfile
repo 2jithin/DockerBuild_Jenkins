@@ -11,7 +11,8 @@ pipeline {
                 script {
                     echo " = = = == = = = = = = Creating Docker Image = = = = = == = = = = ="
                     echo "${env.dockerImageName}"
-                    dockerbuildversion = "user"
+                    dockerbuildversion = "$dockerImageName:v$BUILD_NUMBER"
+                    echo "+++++ Version is $dockerbuildversion"
                     echo "Building Number ${BUILD_NUMBER} and docker build version is ${dockerbuildversion}"
                     //sh 'docker build -t apache-image .'
                     sh 'docker build -t $dockerImageName:v$BUILD_NUMBER .'
@@ -21,7 +22,6 @@ pipeline {
         stage('Verify Docker Image') {
             steps {
                 echo "Verifying Docker and Build Version"
-                echo ${dockerbuildversion}
                 //sh 'docker run -p 80:80 $dockerbuildversion'
                 //sh docker logs <container-id> //
             }
