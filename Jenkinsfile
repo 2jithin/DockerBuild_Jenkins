@@ -10,18 +10,18 @@ pipeline {
             steps {
                 echo " = = = == = = = = = = Creating Docker Image = = = = = == = = = = ="
                 echo "${env.dockerImageName}"
-                //dockerbuildversion = "${env.dockerImageName}:v${BUILD_NUMBER}"
+                dockerbuildversion = "$dockerImageName:v$BUILD_NUMBER"
                 echo "Building Number ${BUILD_NUMBER} and docker build version is ${dockerbuildversion}"
-                echo "$dockerImageName"
                 //sh 'docker build -t apache-image .'
-               // sh 'docker build -t $dockerImageName:v$BUILD_NUMBER .'
+                sh 'docker build -t $dockerImageName:v$BUILD_NUMBER .'
                 
             }
         }
         stage('Verify Docker Image') {
             steps {
-                echo "Verifying Docker"                                        
-                //sh 'docker run -p 80:80 my-apache-image'
+                echo "Verifying Docker and Build Version"
+                echo $dockerbuildversion
+                //sh 'docker run -p 80:80 $dockerbuildversion'
                 //sh docker logs <container-id> //
             }
         }
