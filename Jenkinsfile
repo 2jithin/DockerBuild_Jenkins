@@ -7,8 +7,10 @@ pipeline {
     stages {
         stage('Build Docker Image') {
             steps {
+                echo " = = = == = = = = = = Creating Docker Image = = = = = == = = = = ="
                 echo "${env.dockerImageName}"
-                //sh 'docker build -t myimage .'
+                echo "Building Number ${BUILD_NUMBER}"
+                //sh 'docker build -t ${env.dockerImageName} .'
             }
         }
         stage('Verify Docker Image') {
