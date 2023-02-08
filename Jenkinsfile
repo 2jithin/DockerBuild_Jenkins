@@ -24,7 +24,7 @@ pipeline {
                 script {
                     echo "Verifying Docker and Build Version"
                     dockerbuildversion = "$dockerImageName:v$BUILD_NUMBER"
-                    sh 'docker run -p 80:80 $dockerbuildversion'
+                    sh 'docker run -p 80:80 ${dockerbuildversion}'
                     //sh docker logs <container-id> //
                 }
             }
