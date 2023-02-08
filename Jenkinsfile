@@ -8,13 +8,14 @@ pipeline {
     stages {
         stage('Build Docker Image') {
             steps {
-                echo " = = = == = = = = = = Creating Docker Image = = = = = == = = = = ="
-                echo "${env.dockerImageName}"
-                dockerbuildversion = "user"
-                echo "Building Number ${BUILD_NUMBER} and docker build version is ${dockerbuildversion}"
-                //sh 'docker build -t apache-image .'
-                sh 'docker build -t $dockerImageName:v$BUILD_NUMBER .'
-                
+                script {
+                    echo " = = = == = = = = = = Creating Docker Image = = = = = == = = = = ="
+                    echo "${env.dockerImageName}"
+                    dockerbuildversion = "user"
+                    echo "Building Number ${BUILD_NUMBER} and docker build version is ${dockerbuildversion}"
+                    //sh 'docker build -t apache-image .'
+                    sh 'docker build -t $dockerImageName:v$BUILD_NUMBER .'
+                }
             }
         }
         stage('Verify Docker Image') {
