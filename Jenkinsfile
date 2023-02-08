@@ -21,7 +21,7 @@ pipeline {
         stage('Verify Docker Image') {
             steps {
                 echo "Verifying Docker and Build Version"
-                echo $dockerbuildversion
+                echo ${dockerbuildversion}
                 //sh 'docker run -p 80:80 $dockerbuildversion'
                 //sh docker logs <container-id> //
             }
