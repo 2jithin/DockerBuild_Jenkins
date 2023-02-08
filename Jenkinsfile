@@ -3,7 +3,7 @@ pipeline {
     agent any
     // Environment Variables
     environment {
-        dockerImageName = "simpleApachehttp"
+        dockerImageName = "simpleapachehttp"
     }
     stages {
         stage('Build Docker Image') {
