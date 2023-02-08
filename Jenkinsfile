@@ -15,7 +15,8 @@ pipeline {
             }
         }
         stage('Deploy Docker Image') {
-            steps {                                      
+            steps {
+                echo "Deploying Docker" 
                 //docker run -p 80:80 my-apache-image'
             }
         }
