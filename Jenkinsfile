@@ -1,9 +1,13 @@
 pipeline {
     agent any
+    // Environment Variables
+    environment {
+        dockerImageName = "simpleApachehttp"
+    }
     stages {
         stage('Build Docker Image') {
             steps {
-                echo "User1"
+                echo "${env.dockerImageName}"
                 //sh 'docker build -t myimage .'
             }
         }
