@@ -3,12 +3,14 @@ pipeline {
     stages {
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t myimage .'
+                echo "User1"
+                //sh 'docker build -t myimage .'
             }
         }
-        stage('Push Docker Image') {
+        stage('Verify Docker Image') {
             steps {
-                sh 'docker push myimage'
+                echo "hello"                                        
+                //sh 'docker run -p 80:80 my-apache-image'
             }
         }
     }
