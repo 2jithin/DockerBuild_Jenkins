@@ -4,6 +4,7 @@ pipeline {
     // Environment Variables
     environment {
         dockerImageName = "simpleapachehttp"
+        dockertag = ${env.BUILD_NUMBER}
     }
     stages {
         stage('Build Docker Image') {
