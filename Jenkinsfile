@@ -51,7 +51,8 @@ pipeline {
                         response = httpRequest ignoreSslErrors: true, url: 'http://localhost:100'
                         echo "Request http status is ${response.status}"
                         //sh docker logs <container-id> //
-                        if ($response.status == "200") {
+                        def statuscode = "${response.status}"
+                        if ($statuscode == "200") {
                             echo " Valid Image"
                         } else {
                             sh 'echo "Invalid Docker Image and verification failed"'
