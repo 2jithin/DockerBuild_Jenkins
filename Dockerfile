@@ -6,7 +6,7 @@ COPY ./website/ /usr/local/apache2/htdocs/
 
 # Install Apache HTTP server
 #RUN yum update -y && \
-    yum install httpd -y
+    #yum install httpd -y
 
 # Make port 80 available to the host
 #EXPOSE 100
