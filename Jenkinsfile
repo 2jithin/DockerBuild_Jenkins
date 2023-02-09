@@ -8,7 +8,7 @@ pipeline {
     // Environment Variables
     environment {
         dockerImageName = "simpleapachehttp"
-        dockertag = ${env.BUILD_NUMBER}
+        dockertag = "${env.BUILD_NUMBER}"
         containername = "apachehttpd"
     }
     stages {
