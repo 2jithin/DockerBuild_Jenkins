@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     // cleanup docker images
-                    sh 'bash cleanupimages.sh'
+                    //sh 'bash cleanupimages.sh'
                     
                     echo "+++++++++++++++++++ Removing All Docker Container +++++++++++++++++++"
                     
