@@ -5,6 +5,7 @@ pipeline {
     environment {
         dockerImageName = "simpleapachehttp"
         dockertag = ${env.BUILD_NUMBER}
+        containername = "apachehttpd"
     }
     stages {
         stage('Build Docker Image') {
@@ -26,7 +27,8 @@ pipeline {
                     echo "Verifying Docker and Build Version"
                     dockerbuildversion = "$dockerImageName:v$BUILD_NUMBER"
                     echo "Docker build version : $dockerbuildversion"
-                    sh 'docker run -p 100:80 $dockerImageName:v$BUILD_NUMBER'
+                    echo "container name is $containername"
+                    sh 'docker run -d --name $containername$BUILD_NUMBER -p 100:80 $dockerImageName:v$BUILD_NUMBER'
                     //sh docker logs <container-id> //
                 }
             }
