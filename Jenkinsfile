@@ -16,6 +16,9 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
+                    // cleanup docker images
+                    sh 'docker rmi -f $(docker images -aq)'
+                    
                     echo "+++++++++++++++++++ Removing All Docker Container +++++++++++++++++++"
                     
                     sh 'docker container stop $(docker container ls -aq)' // Stop all
@@ -53,6 +56,7 @@ pipeline {
                         } else {
                             sh 'echo "Invalid Docker Image and verification failed"'
                         }
+                        
                         
                     }catch (Exception ex)
                     {
