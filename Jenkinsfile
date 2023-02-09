@@ -43,8 +43,8 @@ pipeline {
 //                 }
                 script {
                     try {
-                        
-                        echo "$cid"
+                        def cid = sh(script: "docker ps --quiet -filter name=${dockerImageName}", returnStdout: true.trim())
+                        //echo "$cid"
                         echo "Verifying Docker and Build Version"
                         dockerbuildversion = "$dockerImageName:v$BUILD_NUMBER"
                         echo "Docker build version : $dockerbuildversion"
