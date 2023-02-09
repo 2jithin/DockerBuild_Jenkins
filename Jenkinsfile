@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     // cleanup docker images
-                    sh 'docker rmi -f $(docker images -aq)'
+                    sh 'docker rmi -f "$(docker images -aq)"'
                     
                     echo "+++++++++++++++++++ Removing All Docker Container +++++++++++++++++++"
                     
