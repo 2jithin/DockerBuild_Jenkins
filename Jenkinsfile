@@ -21,9 +21,9 @@ pipeline {
                     
                     echo "+++++++++++++++++++ Removing All Docker Container +++++++++++++++++++"
                     
-                    sh 'docker container stop $(docker container ls -aq)' // Stop all
-                    sh 'docker container prune -f' // Remove all exited containers
-                    sh 'docker ps -a'
+                    //sh 'docker container stop $(docker container ls -aq)' // Stop all
+                    //sh 'docker container prune -f' // Remove all exited containers
+                    //sh 'docker ps -a'
                                                             
                     echo " = = = == = = = = = = Creating Docker Image = = = = = == = = = = ="
                     
