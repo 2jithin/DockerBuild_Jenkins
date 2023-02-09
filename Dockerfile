@@ -1,12 +1,15 @@
+FROM httpd:2.4
+COPY ./website/ /usr/local/apache2/htdocs/
+
 # Use an existing image as the base image
-FROM centos:7
+#FROM centos:7
 
 # Install Apache HTTP server
-RUN yum update -y && \
+#RUN yum update -y && \
     yum install httpd -y
 
 # Make port 80 available to the host
-EXPOSE 100
+#EXPOSE 100
 
 # Start the Apache service when the container starts
-CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
+#CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
