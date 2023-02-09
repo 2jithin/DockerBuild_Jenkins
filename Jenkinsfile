@@ -38,12 +38,12 @@ pipeline {
         }
         stage('Verify Docker Image') {
             steps {
-//                 environment {
-//                     cid = sh(script: "docker ps --quiet -filter name=${dockerImageName}", returnStdout: true.trim())
-//                 }
+                environment {
+                    cid = sh returnStdout: true, script: 'docker ps --quiet --filter name=${dockerImageName}'
+                }
                 script {
                     try {
-                        sh returnStdout: true, script: 'docker ps --quiet --filter name=${dockerImageName}'
+                        
                         //echo "$cid"
                         echo "Verifying Docker and Build Version"
                         dockerbuildversion = "$dockerImageName:v$BUILD_NUMBER"
