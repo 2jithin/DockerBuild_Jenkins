@@ -51,12 +51,12 @@ pipeline {
                         response = httpRequest ignoreSslErrors: true, url: 'http://localhost:100'
                         echo "Request http status is ${response.status}"
                         //sh docker logs <container-id> //
-//                         if (${response.status} == 200) {
-//                             echo " Valid Image"
-//                         } else {
-//                             sh 'echo "Invalid Docker Image and verification failed"'
-//                         }
-                            // sh 'echo "$httpcode"'                             
+                        if (${response.status} == 200) {
+                            echo " Valid Image"
+                        } else {
+                            sh 'echo "Invalid Docker Image and verification failed"'
+                        }
+                            sh 'echo "$httpcode"'                             
                     } catch (Exception ex) {
                         echo "Image Invalid Stopping pipeline"
                         throw new Exception("stop pipeline")
