@@ -35,18 +35,30 @@ pipeline {
         stage('Verify Docker Image') {
             steps {
                 script {
-                    echo "Verifying Docker and Build Version"
-                    dockerbuildversion = "$dockerImageName:v$BUILD_NUMBER"
-                    echo "Docker build version : $dockerbuildversion"
+                    try {
+                        echo "Verifying Docker and Build Version"
+                        dockerbuildversion = "$dockerImageName:v$BUILD_NUMBER"
+                        echo "Docker build version : $dockerbuildversion"
+
+                        echo "container name is $containername"
+                        sh 'docker run -d --name $containername$BUILD_NUMBER -p 100:80 $dockerImageName/$BUILD_NUMBER'
+                        sh 'response=$(curl -s -w %{http_code} localhost:100)'
+                        sh 'httpcode=$(tail -n1 <<< "$response")'
+    // sh 'echo "$httpcode"'
+                        def response = httpRequest ignoreSslErrors: true, url: 'http://localhost:100'
+                        echo "Request http status is ${response.status}"
+                        //sh docker logs <container-id> //
+                        if (${response.status} == '200') {
+                            echo " Valid Image"
+                        } else {
+                            sh 'echo "Invalid Docker Image and verification failed"'
+                        }
+                        
+                    }catch (Exception ex)
+                    {
+                        echo "Image Invalid Stopping pipeline"
+                    }
                     
-                    echo "container name is $containername"
-                    sh 'docker run -d --name $containername$BUILD_NUMBER -p 100:80 $dockerImageName/$BUILD_NUMBER'
-                    sh 'response=$(curl -s -w %{http_code} localhost:100)'
-                    sh 'httpcode=$(tail -n1 <<< "$response")'
-//                     sh 'echo "$httpcode"'
-                    def response = httpRequest ignoreSslErrors: true, url: 'http://localhost:100'
-                    echo "Request http status is ${response.status}"
-                    //sh docker logs <container-id> //
                 }
             }
         }
