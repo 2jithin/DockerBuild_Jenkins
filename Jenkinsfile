@@ -38,9 +38,9 @@ pipeline {
         }
         stage('Verify Docker Image') {
             steps {
-                environment {
-                    cid = sh returnStdout: true, script: 'docker ps --quiet --filter name=${dockerImageName}'
-                }
+//                 environment {
+//                     cid = sh returnStdout: true, script: 'docker ps --quiet --filter name=${dockerImageName}'
+//                 }
                 script {
                     try {
                         
