@@ -43,7 +43,9 @@ pipeline {
                     sh 'docker run -d --name $containername$BUILD_NUMBER -p 100:80 $dockerImageName/$BUILD_NUMBER'
                     sh 'response=$(curl -s -w %{http_code} localhost:100)'
                     sh 'httpcode=$(tail -n1 <<< "$response")'
-                    sh 'echo "$httpcode"'
+//                     sh 'echo "$httpcode"'
+                    def response = httpRequest ignoreSslErrors: true, url: 'http://localhost:100'
+                    echo "Request http status is ${response.status}"
                     //sh docker logs <container-id> //
                 }
             }
