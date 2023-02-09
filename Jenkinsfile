@@ -1,6 +1,10 @@
 def dockerbuildversion = null
 pipeline {
     agent any
+    options {
+        timeout(time: 20, unit: 'MINUTES')
+        timestamps()
+    }
     // Environment Variables
     environment {
         dockerImageName = "simpleapachehttp"
