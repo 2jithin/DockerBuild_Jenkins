@@ -57,6 +57,7 @@ pipeline {
                     }catch (Exception ex)
                     {
                         echo "Image Invalid Stopping pipeline"
+                        throw new Exception("stop pipeline")
                     }
                     
                 }
