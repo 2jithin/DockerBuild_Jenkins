@@ -38,8 +38,12 @@ pipeline {
         }
         stage('Verify Docker Image') {
             steps {
+                environment {
+                    cid = sh(script: "docker ps --quiet -filter name=${dockerImageName}", returnStdout: true.trim()
+                }
                 script {
                     try {
+                        echo "$cid"
                         echo "Verifying Docker and Build Version"
                         dockerbuildversion = "$dockerImageName:v$BUILD_NUMBER"
                         echo "Docker build version : $dockerbuildversion"
@@ -52,7 +56,7 @@ pipeline {
                         echo "Request http status is ${response.status}"
                         //sh docker logs <container-id> //
                         def statuscode = "${response.status}"
-//                         if ($statuscode == "200") {
+                       //if (${statuscode} == '200') {
 //                             echo " Valid Image"
 //                         } else {
 //                             sh 'echo "Invalid Docker Image and verification failed"'
