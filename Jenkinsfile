@@ -43,8 +43,7 @@ pipeline {
                     sh 'docker run -d --name $containername$BUILD_NUMBER -p 100:80 $dockerImageName/$BUILD_NUMBER'
                     sh 'response=$(curl -s -w %{http_code} localhost:100)'
                     sh 'httpcode=$(tail -n1 <<< "$response")'
-                    statuscode=sh 'echo "$httpcode"'
-                    echo "${statuscode}"
+                    sh 'echo "$httpcode"'
                     //sh docker logs <container-id> //
                 }
             }
