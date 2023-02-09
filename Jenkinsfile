@@ -8,6 +8,7 @@ pipeline {
     // Environment Variables
     environment {
         dockerImageName = "simpleapachehttp"
+        dockerbuildversion = "$dockerImageName:v$BUILD_NUMBER"
         dockertag = "${env.BUILD_NUMBER}"
         containername = "apachehttpd"
     }
@@ -15,12 +16,18 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
+                    echo "+++++++++++++++++++ Removing All Docker Container +++++++++++++++++++"
+                    
+                    sh 'docker container stop $(docker container ls -aq)' // Stop all
+                    sh 'docker container prune -f' // Remove all exited containers
+                    sh 'docker ps -a'
+                                                            
                     echo " = = = == = = = = = = Creating Docker Image = = = = = == = = = = ="
-                    echo "${env.dockerImageName}"
-                    dockerbuildversion = "$dockerImageName:v$BUILD_NUMBER"
+                    
                     echo "+++++ Version is $dockerbuildversion"
                     echo "Building Number ${BUILD_NUMBER} and docker build version is ${dockerbuildversion}"
-                    //sh 'docker build -t apache-image .'
+                    
+                    // Building Docker Images
                     sh 'docker build -t $dockerImageName/$BUILD_NUMBER -f Dockerfile .'
                 }
             }
@@ -31,16 +38,12 @@ pipeline {
                     echo "Verifying Docker and Build Version"
                     dockerbuildversion = "$dockerImageName:v$BUILD_NUMBER"
                     echo "Docker build version : $dockerbuildversion"
+                    
                     echo "container name is $containername"
                     sh 'docker run -d --name $containername$BUILD_NUMBER -p 100:80 $dockerImageName/$BUILD_NUMBER'
+                    
                     //sh docker logs <container-id> //
                 }
-            }
-        }
-        stage('Deploy Docker Image') {
-            steps {
-                echo "Deploying Docker" 
-                //docker run -p 80:80 my-apache-image'
             }
         }
     }
