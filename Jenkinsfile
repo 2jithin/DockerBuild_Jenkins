@@ -21,7 +21,7 @@ pipeline {
                     echo "+++++ Version is $dockerbuildversion"
                     echo "Building Number ${BUILD_NUMBER} and docker build version is ${dockerbuildversion}"
                     //sh 'docker build -t apache-image .'
-                    sh 'docker build -t $dockerImageName:v$BUILD_NUMBER -f Dockerfile .'
+                    sh 'docker build -t $dockerImageName/$BUILD_NUMBER -f Dockerfile .'
                 }
             }
         }
@@ -32,7 +32,7 @@ pipeline {
                     dockerbuildversion = "$dockerImageName:v$BUILD_NUMBER"
                     echo "Docker build version : $dockerbuildversion"
                     echo "container name is $containername"
-                    sh 'docker run -d --name $containername$BUILD_NUMBER -p 100:80 $dockerImageName:v$BUILD_NUMBER'
+                    sh 'docker run -d --name $containername$BUILD_NUMBER -p 100:80 $dockerImageName/$BUILD_NUMBER'
                     //sh docker logs <container-id> //
                 }
             }
