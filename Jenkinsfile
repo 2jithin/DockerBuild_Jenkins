@@ -18,7 +18,7 @@ pipeline {
             steps {
                 script {
                     // cleanup docker images
-                    //sh 'bash cleanupimages.sh'
+                    sh 'bash cleanupimages.sh'
                     
                     echo "+++++++++++++++++++ Removing All Docker Container +++++++++++++++++++"
                     
@@ -58,7 +58,7 @@ pipeline {
                         //sh docker logs <container-id> //
                         def statuscode = "${response.status}"
                        if (statuscode == "200") {
-                            echo " Valid Image"
+                            echo "****************** Latest Docker Image is Valid Image ***********************"
                         } else {
                             sh 'echo "Invalid Docker Image and verification failed"'
                         }                             
