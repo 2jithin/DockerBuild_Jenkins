@@ -17,13 +17,21 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // cleanup docker images and Containers
-                    echo "+++++++++++++++++++ Removing All Docker Container +++++++++++++++++++" 
-                    
-                    sh 'docker container stop $(docker container ls -aq)' // Stop all
-                    sh 'docker container prune -f' // Remove all exited containers
-                    sh 'docker ps -a'
-                    sh 'bash cleanupimages.sh'
+                    // Validate any container is running
+                    echo " Validating running container with names "
+                    def containerId = sh(returnStdout: true, script: "docker ps --filter name=$containername -q")
+                    echo "${containerId}"
+                    if (containerId) {
+                                                // cleanup docker images and Containers
+                        echo "+++++++++++++++++++ Removing All Docker Container +++++++++++++++++++" 
+
+                        sh 'docker container stop $(docker container ls -aq)' // Stop all
+                        sh 'docker container prune -f' // Remove all exited containers
+                        sh 'docker ps -a'
+                        sh 'bash cleanupimages.sh'   
+                    } else {
+                        echo "Skipping the cleanup process in docker"                    
+                    }
                                                         
                     echo " = = = == = = = = = = Creating Docker Image = = = = = == = = = = ="
                     
