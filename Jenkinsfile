@@ -17,15 +17,14 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // cleanup docker images
+                    // cleanup docker images and Containers
+                    echo "+++++++++++++++++++ Removing All Docker Container +++++++++++++++++++" 
+                    
+                    sh 'docker container stop $(docker container ls -aq)' // Stop all
+                    sh 'docker container prune -f' // Remove all exited containers
+                    sh 'docker ps -a'
                     sh 'bash cleanupimages.sh'
-                    
-                    echo "+++++++++++++++++++ Removing All Docker Container +++++++++++++++++++"
-                    
-//                     sh 'docker container stop $(docker container ls -aq)' // Stop all
-//                     sh 'docker container prune -f' // Remove all exited containers
-//                     sh 'docker ps -a'
-                                                            
+                                                        
                     echo " = = = == = = = = = = Creating Docker Image = = = = = == = = = = ="
                     
                     echo "+++++ Version is $dockerbuildversion"
