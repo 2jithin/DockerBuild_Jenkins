@@ -57,11 +57,11 @@ pipeline {
                         echo "Request http status is ${response.status}"
                         //sh docker logs <container-id> //
                         def statuscode = "${response.status}"
-                       //if (${statuscode} == '200') {
-//                             echo " Valid Image"
-//                         } else {
-//                             sh 'echo "Invalid Docker Image and verification failed"'
-//                         }                             
+                       if (statuscode == "200") {
+                            echo " Valid Image"
+                        } else {
+                            sh 'echo "Invalid Docker Image and verification failed"'
+                        }                             
                     } catch (Exception ex) {
                         echo "Image Invalid Stopping pipeline"
                         throw new Exception("stop pipeline")
