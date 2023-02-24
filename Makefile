@@ -1,4 +1,4 @@
-IMAGE_NAME=httpd
+IMAGE_NAME=simpleapachehttp
 IMAGE_TAG=latest
 
 .PHONY: build tag push
