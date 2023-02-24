@@ -11,3 +11,6 @@ tag:
 
 push:
     docker push my-registry.com/$(IMAGE_NAME):$(IMAGE_TAG)
+
+
+#make build tag push
